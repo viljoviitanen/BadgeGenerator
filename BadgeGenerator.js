@@ -16,7 +16,8 @@ class BadgeGenerator {
 		this.font = "bold 52px Courier";
 		this.fontColor = "white";
 		this.backgroundColor = "black";
-		this.outlineColor = "green";
+		this.borderColor = "green";
+		this.outlineColor = "black";
 		this.url = null;
 		this.size = 512;
 		this.fontSize = 52;
@@ -41,6 +42,9 @@ class BadgeGenerator {
 		
 		if(data.outlineColor)
 			this.setOutlineColor(data.outlineColor);
+		
+		if(data.borderColor)
+			this.setBorderColor(data.borderColor);
 		
 		if(data.backgroundColor)
 			this.setBackgroundColor(data.backgroundColor);
@@ -71,6 +75,10 @@ class BadgeGenerator {
 	
 	setOutlineColor(str){
 		this.outlineColor = str;
+	}
+	
+	setBorderColor(str){
+		this.borderColor = str;
 	}
 	
 	setBackgroundColor(str){
@@ -139,10 +147,10 @@ class BadgeGenerator {
 		this.paintDecal(()=>{
 			
 			ctx.lineWidth = this.outline;
-			ctx.strokeStyle = this.outlineColor;
+			ctx.strokeStyle = this.borderColor;
 			ctx.stroke();
 			ctx.lineWidth = Math.floor(this.outline * 0.7);
-			ctx.strokeStyle = this.backgroundColor;
+			ctx.strokeStyle = this.outlineColor;
 			ctx.stroke();
 			call();
 		});
@@ -173,7 +181,7 @@ class BadgeGenerator {
 	paintDecoration(top, bottom){
 		
 		var ctx = this.context;
-		ctx.strokeStyle = this.outlineColor;
+		ctx.strokeStyle = this.borderColor;
 		ctx.lineWidth = this.fontSize / 10;
 		
 		var rads = Math.PI - (top + bottom) / 2;
