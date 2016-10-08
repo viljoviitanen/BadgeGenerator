@@ -140,12 +140,14 @@ class BadgeGenerator {
 		
 		var ctx = this.context;
 		ctx.beginPath();
-		ctx.arc(this.radius, this.radius, this.radius - this.outline / 2, 0, 2 * Math.PI, false);
+		ctx.arc(this.radius, this.radius, this.radius - this.outline, 0, 2 * Math.PI, false);
+		ctx.closePath();
 		ctx.fillStyle = this.backgroundColor;
 		ctx.fill();
 		
 		this.paintDecal(()=>{
-			
+			ctx.beginPath();
+			ctx.arc(this.radius, this.radius, this.radius - this.outline / 2, 0, 2 * Math.PI, false);
 			ctx.lineWidth = this.outline;
 			ctx.strokeStyle = this.borderColor;
 			ctx.stroke();
@@ -221,7 +223,15 @@ class BadgeGenerator {
 			
 			var startX = this.radius - width / 2;
 			var startY = this.radius - height / 2;
-			this.context.drawImage(this.image, startX, startY, width, height);
+			
+			var ctx = this.context;
+			ctx.save();
+			ctx.beginPath();
+			ctx.arc(this.radius, this.radius, this.radius - this.outline, 0, Math.PI*2, false);
+			ctx.closePath();
+			ctx.clip();
+			ctx.drawImage(this.image, startX, startY, width, height);
+			ctx.restore();
 			call();
 		};
 	}
