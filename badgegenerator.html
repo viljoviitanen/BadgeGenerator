@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!-- access this via e.g. https://rawgit.com/small-worlds/BadgeGenerator/master/badgegenerator.html -->
+<html>
+<head>
+<title>Leif's SWE Badge Generator</title>
+<script src="https://rawgit.com/small-worlds/BadgeGenerator/master/BadgeGenerator.js">
+</script>
+</head> 
+<body>
+<h1>Leif's SWE Badge Generator</h1>
+<p>
+<button onclick="make();return false;">Create Badge</button>
+<form>
+Line 1: <input type="text" id="nam" value="Line 1"><br>
+Line 2: <input id="title" value="Line 2"><br>
+Image url: <input id="image" value="https://cdn.discordapp.com/attachments/191725064155168770/210416756957642752/SWE_logo_v2.png"><br>
+Scale: <input id="scal" value="2.1"><br>
+Color 1: <input id="color" value="red"><br>
+Color 2: <input id="color2" value="black"><br>
+Text: <input id="color3" value="white"><br>
+</form>
+<script>
+    var canvas = document.createElement("canvas");
+    canvas.width = 400;
+    canvas.height = 400;
+    //canvas.style.position = "absolute";
+    document.body.appendChild(canvas);
+    var f=document.forms[0];
+
+function make() {
+    var data = {
+        name: f.nam.value,
+        title: f.title.value,
+        image: f.image.value,
+        imageScale: f.scal.value,
+        fontColor: f.color3.value,
+        outlineColor: f.color.value,
+        borderColor: f.color2.value
+    };
+
+    var badge = new BadgeGenerator(canvas, data);
+    badge.make();
+}
+</script>
+</body>
+</html>
